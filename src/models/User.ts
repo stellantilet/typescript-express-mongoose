@@ -1,36 +1,40 @@
-import { Document, Model, model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose'
+import { Receipt } from './Receipt'
 
-/**
- * Interface to model the User Schema for TypeScript.
- * @param email:string
- * @param password:string
- * @param avatar:string
- */
-export interface IUser extends Document {
-  email: string;
-  password: string;
-  avatar: string;
+export interface User {
+  name: string
+  username: string
+  email: string
+  balance: number
+  isMember: boolean
+  receipts?: Receipt[]
 }
 
-const userSchema: Schema = new Schema({
+const userSchema = new Schema<User>({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
-  password: {
+  username: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
   },
-  avatar: {
-    type: String
+  name: {
+    type: String,
   },
-  date: {
-    type: Date,
-    default: Date.now
-  }
-});
+  balance: {
+    type: Number,
+    default: 10000000,
+  },
+  isMember: {
+    type: Number,
+    default: true,
+  },
+  receipts: [{ type: Schema.Types.ObjectId, ref: 'Receipt' }],
+})
 
-const User: Model<IUser> = model("User", userSchema);
+const UserModel = model<User>('User', userSchema)
 
-export default User;
+export default UserModel
