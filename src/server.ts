@@ -1,4 +1,5 @@
 import bodyParser from 'body-parser'
+import cors from 'cors'
 import express from 'express'
 import initializeDB from './database'
 import products from './routes/products'
@@ -11,6 +12,7 @@ const app = express()
 initializeDB()
 
 // Express configuration
+app.use(cors())
 app.set('port', process.env.PORT || 5000)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -25,7 +27,6 @@ app.get('/', (_req, res) => {
 app.use('/purchase', purchase)
 app.use('/users', users)
 app.use('/products', products)
-
 
 const port = app.get('port')
 const server = app.listen(port, () =>
