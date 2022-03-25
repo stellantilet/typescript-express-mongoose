@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon --watch ./src/**/*.ts --exec ts-node ./src/server.ts",
     "build": "tsc --project ./",
-    "start": "tsc --project ./ && node ./dist/server.js",
+    "start": "node ./dist/server.js",
     "clean": "rimraf ./dist"
   },
   "dependencies": {
